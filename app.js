@@ -22,7 +22,7 @@ var calendarRoutes  = require("./routes/calendar.js"),
     userRoutes      = require("./routes/user.js"),
     indexRoutes     = require("./routes/index.js");
     
-mongoose.connect("mongodb://localhost/rcc_symphony");
+mongoose.connect("mongodb://admin:MLitbCSp!17@ds233769.mlab.com:33769/rcc_symphony");
 
 // ==================================
 //          CONFIGURATION
