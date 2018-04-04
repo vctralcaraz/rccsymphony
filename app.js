@@ -83,3 +83,13 @@ app.listen(80, "45.77.112.109", function(){
     console.log("Bootstrap 4 is used with a CDN");
     console.log("Goal: install Bootstrap 4 with package manager or manually (currently not easy - jQuery issues with package manager)");
 });
+
+// ========================
+//      HEROKU Server
+// ========================
+app.set('port', (process.env.PORT || 10000));
+app.listen(app.get('port'), function(){
+    console.log("Riverside City College Symphony Orchestra Web-Server is running...");
+    console.log("Bootstrap 4 is used with a CDN");
+    console.log("Goal: install Bootstrap 4 with package manager or manually (currently not easy - jQuery issues with package manager)");
+});
