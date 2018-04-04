@@ -78,11 +78,11 @@ app.use("/", indexRoutes);  //keep this imported last since it contains the defa
 //        VULTR sERVER
 // ========================
 // SERVER LISTENING...
-app.listen(80, "45.77.112.109", function(){
-    console.log("Riverside City College Symphony Orchestra Web-Server is running...");
-    console.log("Bootstrap 4 is used with a CDN");
-    console.log("Goal: install Bootstrap 4 with package manager or manually (currently not easy - jQuery issues with package manager)");
-});
+// app.listen(80, "45.77.112.109", function(){
+    // console.log("Riverside City College Symphony Orchestra Web-Server is running...");
+    // console.log("Bootstrap 4 is used with a CDN");
+    // console.log("Goal: install Bootstrap 4 with package manager or manually (currently not easy - jQuery issues with package manager)");
+// });
 
 // ========================
 //      HEROKU Server
