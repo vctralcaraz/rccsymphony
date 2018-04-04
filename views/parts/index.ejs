@@ -1,0 +1,99 @@
+<% include ../partials/header %>
+
+<div class="container content">
+    <% if(error && error.length > 0){ %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+    <% } %>
+    <% if(success && success.length > 0){ %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div>
+    <% } %>
+    <% if(currentUser){ %>
+        <div id="partForm">
+            <i id="hidePF" class="fa fa-chevron-up"></i><span> Click to Hide</span>
+            <h1 class="page-heading">Create a new music group</h1>
+            <form id="parts-upload-form" action="/parts/title" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="part[title]" placeholder="Music Title" required/>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+        </div>
+        <div id="partFormHidden">
+           <i id="showPF" class="fa fa-chevron-down"></i><span> Click to Show</span>
+        </div>
+    <% } %>
+    
+    <h1 style="text-align: center;">Parts</h1>
+    <% parts.forEach(function(part){ %>
+        <div class="list-group parts-group">
+            <h1 class="parts-title list-group-item"><%= part.title %><% if(currentUser){ %>&nbsp<i class="fa fa-toggle-on parts-icon fa-rotate-180" aria-hidden="true"></i><% } %></h1>
+            <% if(currentUser){ %>
+                <div class="panel panel-default panel-form">
+                    <form action="/parts/<%= part._id %>" enctype="multipart/form-data" method="POST" class="instrument-upload-forms">
+                        <div class="form-group">
+                            <input type="text" name="part[instrument][name]" class="form-control" placeholder="Instrument Name" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="instrumentFile">Select a PDF File</label>
+                            <input type="file" name="instrumentFile" class="form-control" required/>
+                        </div>
+                        <input type="submit" value="Submit!" class="btn btn-primary btn-lg btn-block" />
+                    </form>
+                </div>
+            <% } %>
+            <ul class="parts-list"> 
+                <% if(part.instrument){ %>
+                    <% part.instrument.forEach(function(inst){ %>
+                        <li class="parts-li list-group-item">
+                            <% if(currentUser){ %>
+                                <form action='/parts/<%= part._id %>/<%= inst.name %>?_method=DELETE' method="POST">
+                                    <span class="calSpan"><i class="fa fa-trash" aria-hidden="true"></i></span><!--
+                                    --><span class="calSpan2"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                            <% } %>
+                                <a href="/parts/<%= part._id %>/<%= inst.name %>" target="_blank" class="parts-link"><%= inst.name %></a>
+                            <% if(currentUser){ %>
+                                </form>
+                                <div class="panel panel-default panel-form edit-form">
+                                    <form class="cal-form" action='/parts/<%=part._id %>?_method=PUT' method="POST">
+                                        <div class="form-group">
+                                            <label>Instrument Name</label>
+                                            <input type="text" name="part[instrument][name]" class="form-control" placeholder="Instrument Name"></input> 
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Select a PDF File</label>
+                                            <input type="file" name="instrumentFile" class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary btn-lg btn-block">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            <% } %>
+                        </li>
+                    <% }); %>
+                <% } %>
+            </ul>
+        </div>
+    <% }); %>
+    
+    <!--<0% parts.forEach(function(item){ %>-->
+    <!--    <form action="/parts/<0%= item._id %>" enctype="multipart/form-data" method="POST">-->
+    <!--        <input type="text" name="part[instrument][name]" placeholder="<0%= item._id %>" />-->
+    <!--        <label for="instrumentFile">Select a PDF File</label>-->
+    <!--        <input type="file" name="instrumentFile" />-->
+    <!--        <input type="submit" value="Submit!" />-->
+    <!--    </form>-->
+    <!--    <h1><0%= item.title %> - <0%= item._id %></h1>-->
+    <!--    <0% item.instrument.forEach(function(inst){ %>-->
+    <!--        <h3><0%= inst.name %></h3>-->
+    <!--    <0% }); %>-->
+    <!--<0% }); %>-->
+</div>
+
+<% include ../partials/footer %>

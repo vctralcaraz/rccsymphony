@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RCC Symphony</title>
+        
+        <!--Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <!--Font awesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	    <!-- bootstrap css -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+        <!-- Main.css -->
+	    <link rel="stylesheet" href="/stylesheets/main.css">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    
+<body>
+  <div id="wrapper">
+    <div id="heading">
+        <div class="container">
+            <h4 id='heading_place'>
+                Henry W. Coil Sr. and Alice Edna Coil<br/>School for the Arts<br/>
+                <a id="header-map" href="https://goo.gl/maps/NLnWVdwvAE72" target="blank" style="color:white; font-size: 1.2rem;">3890 University Avenue, Riverside, CA</a>
+            </h4>
+            <h3><a id="main-icon" id='heading_brand' href="/home">Riverside City College<br/>Symphony Orchestra</a></h3>
+        </div>
+    </div>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+     <div class='container'>
+      <a class="navbar-brand" href="/home">RCC Symphony</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/calendar">Calendar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/faculty">Faculty</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/parts">Parts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/rehearsal">Rehearsal</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="/media" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Media
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/media/video">Video</a>
+              <a class="dropdown-item" href="/media/photo">Picture Gallery</a>
+              <a class="dropdown-item" href="/media/past">Past Programs</a>
+            </div>
+          </li>
+          <% if(currentUser){ %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/media" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= currentUser.username %>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
+              </li>
+          <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/admin/login">Login</a>
+            </li>
+          <% }; %>
+        </ul>
+      </div>
+     </div>
+    </nav>
+       
+    <div id="body">

@@ -1,0 +1,19 @@
+<% include ../partials/header %>
+
+<div class="container content">
+    <h1>Upload A File</h1>
+    
+    <h2>Image Upload</h2>
+    <form id="formUploader" enctype="multipart/form-data" action="/parts/image" method="POST">
+        <input type="file" name="imgUploader" class="inputfile" />
+        <button class="btn btn-primary">Submit</button>
+    </form>
+    
+    <h2>PDF Upload</h2>
+    <form id="formUploader" enctype="multipart/form-data" action="/parts/pdf" method="POST">
+        <input type="file" name="pdfUploader" class="inputfile" />
+        <button class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<% include ../partials/footer %>

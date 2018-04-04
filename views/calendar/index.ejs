@@ -1,0 +1,79 @@
+<% include ../partials/header %>
+<div class="container content">
+    
+    <% if(error && error.length > 0){ %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+    <% } %>
+    <% if(success && success.length > 0){ %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div>
+    <% } %>
+    
+    <!--<h1 class="page-heading">Calendar</h1>-->
+    
+    <div id="calList">
+        <ul class="calListSet list-group">
+            <h1 class="calH1 list-group-item">RCC Symphony 2017 - 2018 Calendar<% if(currentUser){ %>&nbsp<i class="fa fa-toggle-on cal-icon fa-rotate-180" aria-hidden="true"></i><% } %></h1>
+            <% if(currentUser){ %>
+                <div class="card card-default panel-form">
+                    <form class="cal-form" action="/calendar" method="POST">
+                        <div class="form-group">
+                            <label>Select a Calendar Date</label>
+                            <input class="form-control inputDate" name="cal[date]" type="date" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Enter Date Information</label>
+                            <textarea class="form-control calInfo" name="cal[description]" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg btn-block" onclick="textConvert2()">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            <% } %>
+            <% function isEmpty(obj) {for(var x in obj) {return false;}return true;} %>
+            <% if (isEmpty(calendar)) {%>
+                <li class="calLi list-group-item">
+                    <p class="calEl">There are no calendar dates at the moment.</p>
+                </li>
+            <% } %>
+            <% calendar.forEach(function(calendar){ %>
+               <li class="calLi list-group-item">
+                    <% if(currentUser){ %>
+                        <form action='/calendar/<%=calendar._id%>?_method=DELETE' method="POST">
+                            <span class="calSpan"><i class="fa fa-trash" aria-hidden="true"></i></span><!--
+                         --><span class="calSpan2"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                    <% } %>
+                            <span class="calEl">
+                                <%=calendar.date.toDateString()%> - <span></span><%= calendar.description %>
+                            </span>
+                    <% if(currentUser){ %>
+                        </form><!--
+                     --><div class="card panel-default panel-form edit-form">
+                            <form class="cal-form" action='/calendar/<%=calendar._id %>?_method=PUT' method="POST">
+                                <div class="form-group">
+                                    <label>Select a Calendar Date</label>
+                                    <input class="form-control inputDate" name="cal[date]" type="date" value='<%=calendar.date.toISOString().slice(0,10)%>'>
+                                </div>
+                                <div class="form-group">
+                                    <label>Enter Date Information</label>
+                                    <textarea class="form-control calInfo" name="cal[description]"><%=calendar.description%></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-lg btn-block" onclick="textConvert()">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    <% } %>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+</div>
+
+
+
+<% include ../partials/footer %>

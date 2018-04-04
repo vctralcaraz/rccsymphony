@@ -1,0 +1,35 @@
+<% include ../partials/header %>
+
+<div class="container content">
+    <div class="faculty-heading">
+        <!--<div class="row">-->
+            <div class="col-xs-12">
+                <% if(currentUser){ %>
+                    <a href="<%= person.first %>-<%= person.last %>/edit" class="btn btn-outline-warning" id="show-editBtn">Edit</a>
+                    <form id="show-deleteForm" action="/faculty/<%= person._id %>?_method=DELETE" method="POST">
+                        <input type="submit" class="btn btn-outline-danger" id="show-deleteBtn" value="Delete" />
+                    </form>
+                <% } %>
+                <div id='show-head'>
+                    <p id="show-name"><%= person.first %>&nbsp<%= person.last %></p>
+                    <p id="show-title"><%= person.title %></p>
+                </div>
+            </div>
+        <!--</div>-->
+        <div class="row">
+            <div class="col-sm-6 col-xs-12 show-eml">
+                <h4>Email:  <%= person.email %></h4>
+            </div>
+            <div class="col-sm-6 col-xs-12 ">
+                <h4>Phone:  <%= person.phone %></h4>
+            </div>
+        </div>
+    </div>
+    <hr class="style17">
+    <div class="show-body">
+        <img class="img-thumbnail" src=".<%= person.portrait %>">
+        <p class="show-info"><%- person.info %></p>
+    </div>
+</div>
+
+<% include ../partials/footer %>

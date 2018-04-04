@@ -1,0 +1,74 @@
+<% include ../partials/header %>
+
+<div class="container">
+    
+    <% if(error && error.length > 0){ %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+    <% } %>
+    <% if(success && success.length > 0){ %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div>
+    <% } %>
+    
+    <!--<h1 style="text-align: center">Faculty<0% if(currentUser){ %>&nbsp<i class="fa fa-toggle-on cal-icon fa-rotate-180" aria-hidden="true"></i><0% } %></h1>-->
+    <h1 style="text-align: center"><% if(currentUser){ %>Add Faculty Member &nbsp<i class="fa fa-toggle-on cal-icon fa-rotate-180" aria-hidden="true"></i><% } %></h1>
+
+    <% if(currentUser){ %>
+        <div id="fac-form" class="panel panel-default panel-form">
+            <form class="reh-form" action="/faculty" enctype="multipart/form-data" method="POST">
+                <div class="form-group">
+                    <label>First Name: </label>
+                    <input class="form-control" type="text" name="falc[first]" maxlength="60" placeholder="First Name (60 character limit)" required/>
+                </div>
+                <div class="form-group">
+                    <label>Last Name: </label>
+                    <input class="form-control" type="text" name="falc[last]" maxlength="60" placeholder="Last Name (60 character limit)" required/>
+                </div>
+                <div class="form-group">
+                    <label>Job Title: </label>
+                    <input class="form-control" type="text" name="falc[title]" maxlength="60" placeholder="Job Title (60 character limit)" required/>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number: </label>
+                    <input class="form-control" type="text" name="falc[phone]" placeholder="Phone Number" required/>
+                </div>
+                <div class="form-group">
+                    <label>Email: </label>
+                    <input class="form-control" type="email" name="falc[email]" maxlength="60" placeholder="Email (60 character limit)" required/>
+                </div>
+                <div class="form-group">
+                    <label>Description: </label>
+                    <textarea id="falcInfo" class="form-control" name="falc[info]" placeholder="Enter Bio" required></textarea>
+                </div>
+                <div class="form-group form-inline faculty-upload">
+                    <label for="portraitUpload">Choose a Portrait</label>
+                    <input type="file" name="portraitUpload" id="portUp" class="inputfile form-control" />
+                    <label for="falc[check]">Check if no portrait at this time</label>
+                    <input type="checkbox" name="falc[check]" id="falcCheck" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <button onclick="falcTextConvert()" class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+        </div>
+    <% } %>
+    <div class="card-columns">
+     <% faculty.forEach(function(person){ %>
+     <a href="/faculty/<%= person.first %>-<%= person.last %>">
+      <div class="card">
+        <img class="card-img-top rounded img-fluid" src="<%= person.portrait %>" alt="faculty image">
+        <div class="card-block">
+          <h4 class="card-title"><%= person.first %>&nbsp<%= person.last %></h4>
+          <p class="card-text"><%- person.info.substr(0,200) %>...</p>
+        </div>
+      </div>
+     </a>
+     <% }); %>
+      
+    </div>
+</div>
+
+<% include ../partials/footer %>

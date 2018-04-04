@@ -1,0 +1,26 @@
+<% include ../partials/header %>
+
+<div class="container">
+    
+    <h1 style="text-align: center;">Past Programs</h1>
+    <div id="calList">
+        <ul class="calListSet list-group">
+            <h1 class="calH1 list-group-item">RCC Symphony 2017 - 2018 Past Programs</h1>
+            <% function isEmpty(obj) {for(var x in obj) {return false;}return true;} %>
+            <% if (isEmpty(calendar)) {%>
+                <li class="calLi list-group-item">
+                    <p class="calEl">There are no past programs at the moment.</p>
+                </li>
+            <% } %>
+            <% calendar.forEach(function(calendar){ %>
+               <li class="calLi list-group-item">
+                    <span class="calEl">
+                        <%=calendar.date.toDateString()%> - <span></span><%= calendar.description %>
+                    </span>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+</div>
+
+<% include ../partials/footer %>

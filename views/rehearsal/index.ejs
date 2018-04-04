@@ -1,0 +1,78 @@
+<% include ../partials/header %>
+
+<div class="container content">
+    <% if(error && error.length > 0){ %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+    <% } %>
+    <% if(success && success.length > 0){ %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div>
+    <% } %>
+    
+    <!--<h1 class="page-heading">Rehearsal</h1>-->
+    
+    <div id="rehList">
+        <ul class="listSet list-group">
+            <h1 class="rehH1 list-group-item">Rehearsal Schedule 2017-2018<% if(currentUser){ %>&nbsp<i class="fa fa-toggle-on cal-icon fa-rotate-180" aria-hidden="true"></i><% } %></h1>
+            <% if(currentUser){ %>
+                <div class="panel panel-default panel-form">
+                    <form class="reh-form" action="/rehearsal" method="POST">
+                        <div class="form-group">
+                            <label>Select a Rehearsal Date</label>
+                            <input class="form-control inputDate" name="reh[date]" type="date" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Enter Rehearsal Information</label>
+                            <textarea class="form-control" id='rehInfo' name="reh[info]" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg btn-block" onclick="textConvert()">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            <% } %>
+            <% function isEmpty(obj) {for(var x in obj) {return false;}return true;} %>
+            <% if (isEmpty(item)) {%>
+                <li class="rehLi list-group-item">
+                    <p class="rehEl">There are no Rehearsal dates at the moment.</p>
+                </li>
+            <% } %>
+            <% item.forEach(function(item){ %>
+               <li class="rehLi list-group-item">
+                    <% if(currentUser){ %>
+                        <form action='/rehearsal/<%= item._id %>?_method=DELETE' method="POST">
+                            <span class="rehSpan"><i class="fa fa-trash" aria-hidden="true"></i></span><!--
+                         --><span class="rehSpan2"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                    <% } %>
+                        <span class="rehEl">
+                            <%=item.date.toDateString()%> - <span></span><%- item.info %>
+                        </span>
+                    <% if(currentUser){ %>
+                        </form><!--
+                     --><div class="panel panel-default panel-form edit-form">
+                            <form class="reh-form" action='/rehearsal/<%=item._id %>?_method=PUT' method="POST">
+                                <div class="form-group">
+                                    <label>Select a Rehearsal Date</label>
+                                    <input class="form-control inputDate" name="reh[date]" type="date" value='<%=item.date.toISOString().slice(0,10)%>' required/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Enter Date Information</label>
+                                    <textarea class="form-control rehInfo" name="reh[info]" required><%=item.info%></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-lg btn-block" onclick="textConvert()">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    <% } %>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>
